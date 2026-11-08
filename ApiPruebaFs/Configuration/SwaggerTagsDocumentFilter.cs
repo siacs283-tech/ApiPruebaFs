@@ -10,10 +10,8 @@ namespace ApiPruebaFs.Configuration
         {
             swaggerDoc.Tags = new List<OpenApiTag>
             {
-                new() { Name = "Autenticacion", Description = "Inicio de sesion, refresh token y validacion del JWT." },
-                new() { Name = "Clientes", Description = "Consultas de clientes." },
-                new() { Name = "Productos", Description = "Consultas de productos." },
-                new() { Name = "Proveedores", Description = "Consultas de proveedores." },
+                new() { Name = "Autenticacion", Description = "Inicio de sesion, refresh token y validacion del JWT." },     
+                new() { Name = "Productos", Description = "Consultas de productos." },              
                 new() { Name = "Usuarios", Description = "Operaciones de usuarios." }
             };
         }

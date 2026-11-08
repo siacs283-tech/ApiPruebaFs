@@ -15,7 +15,9 @@ namespace ApiPruebaFs.Extensions
     {
         public static IServiceCollection AddApiPruebaFsServices(this IServiceCollection services)
         {
-           
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
+
             services.AddScoped<IJwtTokenService, JwtTokenService>();
 
             return services;
@@ -114,12 +116,9 @@ namespace ApiPruebaFs.Extensions
         {
             return controller switch
             {
-                "Auth" => "Autenticacion",
-                "Clientes" => "Clientes",
-                "Productos" => "Productos",
-                "Proveedor" => "Proveedores",
+                "Auth" => "Autenticacion",               
+                "Productos" => "Productos",               
                 "Usuario" => "Usuarios",
-                "Ventas" => "Ventas",
                 _ => controller ?? "General"
             };
         }
@@ -128,12 +127,9 @@ namespace ApiPruebaFs.Extensions
         {
             return controller switch
             {
-                "Auth" => 1,
-                "Clientes" => 2,
-                "Productos" => 3,
-                "Proveedor" => 4,
-                "Usuario" => 5,
-                "Ventas" => 6,
+                "Auth" => 1,               
+                "Productos" => 2,               
+                "Usuario" => 3,                
                 _ => 99
             };
         }

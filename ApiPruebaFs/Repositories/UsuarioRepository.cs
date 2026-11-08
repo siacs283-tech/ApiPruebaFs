@@ -27,7 +27,7 @@ namespace ApiPruebaFs.Repositories
 
                 using var cmd = new SqlCommand("ObtenerUsuarioPorId", conection);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("prmidusu", usuario);
+                cmd.Parameters.AddWithValue("@idusu", usuario);
 
 
                 await conection.OpenAsync();
@@ -36,19 +36,9 @@ namespace ApiPruebaFs.Repositories
 
                 while (await reader.ReadAsync())
                 {
-
-                    lista.clave = reader["clave"].ToString();
-                    lista.nombre = reader["nombre"].ToString();
-                    lista.nivel = int.Parse(reader["nivel"].ToString());
-                    lista.idsucursal = int.Parse(reader["idsucursal"].ToString());
-                    lista.nombresucursal = reader["nombresucursal"].ToString();
-                    lista.estado = int.Parse(reader["estado"].ToString());
-                    lista.idcaja = int.Parse(reader["idcaja"].ToString());
-                    lista.nombrecaja = reader["nombrecaja"].ToString();
-                    lista.rucempresa = reader["rucempresa"].ToString();
-                    lista.estadopago = int.Parse(reader["estadopago"].ToString());
-                    lista.usuario = reader["usuario"].ToString();
-                    ;                    //});
+                    lista.clave = reader["clave"].ToString();                  
+                    lista.rucempresa = reader["rucempresa"].ToString();                    
+                    lista.usuario = reader["usuario"].ToString();         
                 }
 
                 return lista;
@@ -112,11 +102,10 @@ namespace ApiPruebaFs.Repositories
         {
             try
             {
-                _logger.LogInformation("Guardando refresh token para usuario {Usuario} y rucempresa {RucEmpresa}. Expira {ExpiresAt:u}.", usuario, rucempresa, expiresAt);
-
+            
                 await using var connection = new SqlConnection(_connectionString);
                 await connection.OpenAsync();
-                await using var transaction = await connection.BeginTransactionAsync();
+                await using var transaction = (SqlTransaction) await connection.BeginTransactionAsync();
 
                 try
                 {
@@ -125,7 +114,7 @@ namespace ApiPruebaFs.Repositories
                         SET revoked_at = @revoked_at
                         WHERE usuario = @usuario
                           AND rucempresa = @rucempresa
-                          AND revoked_at IS NULL;", connection))
+                          AND revoked_at IS NULL;", connection,transaction))
                     {
                         revokeCommand.CommandType = CommandType.Text;
                         revokeCommand.Parameters.AddWithValue("@revoked_at", DateTime.UtcNow);
@@ -136,7 +125,7 @@ namespace ApiPruebaFs.Repositories
 
                     await using (var insertCommand = new SqlCommand(@"
                         INSERT INTO usuario_refresh_tokens (usuario, rucempresa, token_hash, expires_at)
-                        VALUES (@usuario, @rucempresa, @token_hash, @expires_at);", connection))
+                        VALUES (@usuario, @rucempresa, @token_hash, @expires_at);", connection, transaction))
                     {
                         insertCommand.CommandType = CommandType.Text;
                         insertCommand.Parameters.AddWithValue("@usuario", usuario);
@@ -147,7 +136,6 @@ namespace ApiPruebaFs.Repositories
                     }
 
                     await transaction.CommitAsync();
-                    _logger.LogInformation("Refresh token guardado correctamente para usuario {Usuario} y rucempresa {RucEmpresa}.", usuario, rucempresa);
                 }
                 catch
                 {
@@ -195,16 +183,9 @@ namespace ApiPruebaFs.Repositories
             return new Usuario
             {
                 usuario = GetString(reader, "usuario"),
-                clave = GetString(reader, "clave"),
-                nombre = GetString(reader, "nombre"),
-                nivel = GetInt(reader, "nivel"),
-                idsucursal = GetInt(reader, "idsucursal"),
-                nombresucursal = GetString(reader, "nombresucursal"),
-                estado = GetInt(reader, "estado"),
-                idcaja = GetInt(reader, "idcaja"),
-                nombrecaja = GetString(reader, "nombrecaja"),
-                rucempresa = GetString(reader, "rucempresa"),
-                estadopago = GetInt(reader, "estadopago")
+                clave = GetString(reader, "clave"),               
+                rucempresa = GetString(reader, "rucempresa")
+              
             };
         }
 

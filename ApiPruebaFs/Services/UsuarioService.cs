@@ -84,16 +84,8 @@ namespace ApiPruebaFs.Services
                 refreshTokenExpiresAt = tokens.refreshTokenExpiresAt,
                 usuario = new UsuarioSesionDTO
                 {
-                    usuario = usuario.usuario,
-                    nombre = usuario.nombre,
-                    nivel = usuario.nivel,
-                    idsucursal = usuario.idsucursal,
-                    nombresucursal = usuario.nombresucursal,
-                    idcaja = usuario.idcaja,
-                    nombrecaja = usuario.nombrecaja,
-                    estado = usuario.estado,
-                    rucempresa = usuario.rucempresa,
-                    estadopago = usuario.estadopago
+                    usuario = usuario.usuario,                  
+                    rucempresa = usuario.rucempresa                   
                 }
             };
         }
