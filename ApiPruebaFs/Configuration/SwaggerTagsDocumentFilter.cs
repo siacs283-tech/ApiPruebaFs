@@ -12,7 +12,8 @@ namespace ApiPruebaFs.Configuration
             {
                 new() { Name = "Autenticacion", Description = "Inicio de sesion, refresh token y validacion del JWT." },     
                 new() { Name = "Productos", Description = "Consultas de productos." },
-                new() { Name = "Carrito", Description = "Ingreso y Consulta de Produtos al Carrito de Compras" }
+                new() { Name = "Carrito", Description = "Ingreso y Consulta de Produtos al Carrito de Compras" },
+                new() { Name = "Orden", Description = "Ingresar Consultar Orden de compras" }
             };
         }
     }

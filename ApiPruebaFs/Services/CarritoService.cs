@@ -1,5 +1,4 @@
 ﻿using ApiPruebaFs.DTOs;
-using ApiPruebaFs.Interfaces;
 using ApiPruebaFs.Models;
 using ApiPruebaFs.Repositories;
 

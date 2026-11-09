@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Text;
 using ApiPruebaFs.Configuration;
-using ApiPruebaFs.Interfaces;
 using ApiPruebaFs.Repositories;
 using ApiPruebaFs.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -24,6 +23,9 @@ namespace ApiPruebaFs.Extensions
 
             services.AddScoped<ICarritoRepository, CarritoRepository>();
             services.AddScoped<ICarritoService, CarritoService>();
+
+            services.AddScoped<IOrdenRepository, OrdenRepository>();
+            services.AddScoped<IOrdenService, OrdenService>();
 
             services.AddScoped<IJwtTokenService, JwtTokenService>();
 

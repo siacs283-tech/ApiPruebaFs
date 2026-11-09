@@ -1,6 +1,6 @@
 ﻿using ApiPruebaFs.DTOs;
 
-namespace ApiPruebaFs.Interfaces
+namespace ApiPruebaFs.Services
 {
     public interface ICarritoService
     {
