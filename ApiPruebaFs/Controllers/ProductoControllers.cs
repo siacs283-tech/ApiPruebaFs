@@ -20,8 +20,7 @@ namespace ApiPruebaFs.Controllers
         [HttpGet]
         public async Task<IActionResult> Listar(
             [FromQuery] int pagina = 1,
-            [FromQuery] int registros = 10,
-            [FromQuery] string buscar = null)
+            [FromQuery] string Nombre = null)
         {
             var rucempresa = User.FindFirst("rucempresa")?.Value;
 
@@ -31,23 +30,23 @@ namespace ApiPruebaFs.Controllers
                     mensaje = "No se encontró la empresa del usuario."
                 });
 
-            var resultado = string.IsNullOrWhiteSpace(buscar)
-                ? await _service.ListarAsync(rucempresa, pagina, registros)
-                : await _service.BuscarAsync(rucempresa, buscar, pagina, registros);
+            var resultado = string.IsNullOrWhiteSpace(Nombre)
+                ? await _service.ListarProducto(rucempresa, pagina)
+                : await _service.BuscarProducto(rucempresa, Nombre, pagina);
 
             return Ok(resultado);
         }
 
         // GET: api/products/1
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> ObtenerPorId(int id)
+        public async Task<IActionResult> ObtenerProductoPorId(int id)
         {
             var rucempresa = User.FindFirst("rucempresa")?.Value;
 
             if (string.IsNullOrWhiteSpace(rucempresa))
                 return Unauthorized();
 
-            var producto = await _service.ObtenerPorIdAsync(id, rucempresa);
+            var producto = await _service.ObtenerProductoPorId(id, rucempresa);
 
             if (producto == null)
                 return NotFound(new

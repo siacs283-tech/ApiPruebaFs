@@ -27,15 +27,8 @@ namespace ApiPruebaFs.DTOs
     public class UsuarioSesionDTO
     {
         public string usuario { get; set; } = string.Empty;
-        public string nombre { get; set; } = string.Empty;
-        public int nivel { get; set; }
-        public int idsucursal { get; set; }
-        public string nombresucursal { get; set; } = string.Empty;
-        public int idcaja { get; set; }
-        public string nombrecaja { get; set; } = string.Empty;
-        public int estado { get; set; }
         public string rucempresa { get; set; } = string.Empty;
-        public int estadopago { get; set; }
+
     }
 }
 

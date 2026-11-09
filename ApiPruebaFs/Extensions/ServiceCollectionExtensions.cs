@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Text;
 using ApiPruebaFs.Configuration;
+using ApiPruebaFs.Interfaces;
 using ApiPruebaFs.Repositories;
 using ApiPruebaFs.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,6 +18,12 @@ namespace ApiPruebaFs.Extensions
         {
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IUsuarioService, UsuarioService>();
+
+            services.AddScoped<IProductoRepository, ProductoRepository>();
+            services.AddScoped<IProductoService, ProductoService>();
+
+            services.AddScoped<ICarritoRepository, CarritoRepository>();
+            services.AddScoped<ICarritoService, CarritoService>();
 
             services.AddScoped<IJwtTokenService, JwtTokenService>();
 
@@ -118,7 +125,7 @@ namespace ApiPruebaFs.Extensions
             {
                 "Auth" => "Autenticacion",               
                 "Productos" => "Productos",               
-                "Usuario" => "Usuarios",
+                "Carrito" => "Carrito",
                 _ => controller ?? "General"
             };
         }
@@ -129,7 +136,7 @@ namespace ApiPruebaFs.Extensions
             {
                 "Auth" => 1,               
                 "Productos" => 2,               
-                "Usuario" => 3,                
+                "Carrito" => 3,                
                 _ => 99
             };
         }

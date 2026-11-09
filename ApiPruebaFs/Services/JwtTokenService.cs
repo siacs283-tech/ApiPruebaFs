@@ -35,10 +35,6 @@ namespace ApiPruebaFs.Services
                 new(JwtRegisteredClaimNames.Sub, usuario.usuario),
                 new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new(ClaimTypes.NameIdentifier, usuario.usuario),
-                new(ClaimTypes.Name, usuario.nombre ?? string.Empty),
-                new("nivel", usuario.nivel.ToString()),
-                new("idsucursal", usuario.idsucursal.ToString()),
-                new("idcaja", usuario.idcaja.ToString()),
                 new("rucempresa", usuario.rucempresa ?? string.Empty)
             };
 
